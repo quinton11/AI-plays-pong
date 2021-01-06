@@ -73,10 +73,10 @@ class Player():
             if ball.rect.centerx > (display_width/2) and ball.velx > 0:
                 if ball.rect.centerx > (display_width/2) + 100:
                     if self.rect.top > ball.rect.y and self.rect.top >= 0:
-                        self.rect.move_ip(0, -10)
+                        self.rect.move_ip(0, -12)
 
                     if self.rect.bottom < ball.rect.y and (self.rect.bottom) <= display_height:
-                        self.rect.move_ip(0, 10)
+                        self.rect.move_ip(0, 12)
                 else:
                     if self.rect.top > ball.rect.y and self.rect.top >= 0:
                         self.rect.move_ip(0, -4)
@@ -133,8 +133,8 @@ class Ball():
                 if self.rect.centery < other1.rect.centery:
                     if (self.rect.centery > other1.rect.centery-10):
                         # Found off stackexchange
-                        self.velx = 8
-                        self.vely = -4
+                        self.velx = 10
+                        self.vely = -6
 
                     elif (self.rect.centery > other1.rect.centery-20):
                         self.velx = 6
@@ -142,24 +142,24 @@ class Ball():
 
                     # add an elif statement
                     elif (self.rect.centery > other1.rect.centery - 40):
-                        self.velx = 4
-                        self.vely = -8
+                        self.velx = 6
+                        self.vely = -10
                     else:
                         self.velx = 3
                         self.vely = -9
 
                 if self.rect.centery > other1.rect.centery:
                     if (self.rect.centery < other1.rect.centery+10):
-                        self.velx = 8
-                        self.vely = 4
+                        self.velx = 10
+                        self.vely = 6
 
                     elif (self.rect.centery < other1.rect.centery + 20):
                         self.velx = 6
                         self.vely = 6
 
                     elif (self.rect.centery < other1.rect.centery + 40):
-                        self.velx = 4
-                        self.vely = 8
+                        self.velx = 6
+                        self.vely = 10
                     else:
                         self.velx = 3
                         self.vely = 9
@@ -183,32 +183,32 @@ class Ball():
                 if self.rect.centery < other2.rect.centery:
                     if (self.rect.centery > other2.rect.centery-10):
                         # Found off stackexchange
-                        self.velx = -8
-                        self.vely = -4
+                        self.velx = -10
+                        self.vely = -6
 
                     elif (self.rect.centery > other2.rect.centery-20):
                         self.velx = -6
                         self.vely = -6
 
                     elif (self.rect.centery > other2.rect.centery-40):
-                        self.velx = -4
-                        self.vely = -8
+                        self.velx = -6
+                        self.vely = -10
                     else:
                         self.velx = -3
                         self.vely = -9
 
                 if self.rect.centery > other2.rect.centery:
                     if (self.rect.centery < other2.rect.centery+10):
-                        self.velx = -8
-                        self.vely = 4
+                        self.velx = -10
+                        self.vely = 6
 
                     elif (self.rect.centery < other2.rect.centery + 20):
                         self.velx = -6
                         self.vely = 6
 
                     elif(self.rect.centery < other2.rect.centery + 40):
-                        self.velx = -4
-                        self.vely = 8
+                        self.velx = -6
+                        self.vely = 10
                     else:
                         self.velx = -3
                         self.vely = 9
@@ -258,33 +258,85 @@ pong = Ball(white, display)
 pong.draw(display)
 
 
-while True:
+def game(display):
+    while True:
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
 
-    display.fill(black)
+        display.fill(black)
 
-    # move player
-    player.move(pong)
-    player_2.move(pong)
-    # pong.move(display,player,player_2)
+        # move player
+        player.move(pong)
+        player_2.move(pong)
+        # pong.move(display,player,player_2)
 
-    pong.move(player, player_2, top_border, bottom_border)
-    # Update display after player movement
-    player.draw(display)
-    player_2.draw(display)
-    pong.draw(display)
-    # Draw center lines
-    pygame.draw.rect(display, white, center_line_top)
-    pygame.draw.rect(display, white, center_line_bottom)
+        pong.move(player, player_2, top_border, bottom_border)
+        # Update display after player movement
+        player.draw(display)
+        player_2.draw(display)
+        pong.draw(display)
+        #Draw center lines
+        pygame.draw.rect(display, white, center_line_top)
+        pygame.draw.rect(display, white, center_line_bottom)
 
-    # Draw borders
-    pygame.draw.rect(display, white, bottom_border)
-    pygame.draw.rect(display, white, top_border)
+        # Draw borders
+        pygame.draw.rect(display, white, bottom_border)
+        pygame.draw.rect(display, white, top_border)
 
-    # Update window display
-    pygame.display.flip()
-    clock.tick(60)
+        # Update window display
+        pygame.display.flip()
+        clock.tick(60)
+
+def menu(display):
+    against_cpu = pygame.Rect((display_width/2) -100,display_height/2,300,100)
+    ai_against_cpu = pygame.Rect((display_width/2) -100,(display_height/2)-130,300,100)
+    while True:
+        
+        display.fill(black)
+        
+        menu_name = font.render("Pong draft",True,white)
+        display.blit(menu_name,(display_width/2 -100,30))
+        mx, my = pygame.mouse.get_pos()
+        if against_cpu.collidepoint((mx, my)):
+            if click:
+                game(display)
+
+        if ai_against_cpu.collidepoint((mx, my)):
+            if click:
+                game(display)
+
+        #A menu where you decide whether to play against cpu or ai against cpu
+        
+        pygame.draw.rect(display,white,against_cpu)
+        pygame.draw.rect(display,white,ai_against_cpu)
+
+        display.blit(font.render('P1 vs Cpu',True,black),(display_width/2 - 70,display_height/2 + 25))
+        display.blit(font.render(' AI vs Cpu',True,black),((display_width/2) - 70,(display_height/2) - 105))
+        pygame.display.flip()
+        
+        click = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == K_ESCAPE:
+                    pygame.quit()
+                    sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+
+
+menu(display)
+
+
+
+
