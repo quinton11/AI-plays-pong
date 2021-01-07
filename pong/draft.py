@@ -137,16 +137,16 @@ class Ball():
                         self.vely = -6
 
                     elif (self.rect.centery > other1.rect.centery-20):
-                        self.velx = 6
-                        self.vely = -6
+                        self.velx = 8
+                        self.vely = -8
 
                     # add an elif statement
                     elif (self.rect.centery > other1.rect.centery - 40):
                         self.velx = 6
                         self.vely = -10
                     else:
-                        self.velx = 3
-                        self.vely = -9
+                        self.velx = 4
+                        self.vely = -12
 
                 if self.rect.centery > other1.rect.centery:
                     if (self.rect.centery < other1.rect.centery+10):
@@ -154,32 +154,32 @@ class Ball():
                         self.vely = 6
 
                     elif (self.rect.centery < other1.rect.centery + 20):
-                        self.velx = 6
-                        self.vely = 6
+                        self.velx = 8
+                        self.vely = 8
 
                     elif (self.rect.centery < other1.rect.centery + 40):
                         self.velx = 6
                         self.vely = 10
                     else:
-                        self.velx = 3
-                        self.vely = 9
+                        self.velx = 4
+                        self.vely = 12
 
                 if self.rect.centery == other1.rect.centery:
                     self.velx = 12
                     self.vely = 0
 
-            if abs(self.rect.bottom - other1.rect.top) < 10 and self.vely > 0:
+            if abs(self.rect.bottom - other1.rect.top) < 20 and self.vely > 0:
                 print("Ball bottom hit paddle top")
                 self.vely = -self.vely
 
-            if abs(self.rect.top - other1.rect.bottom) < 10 and self.vely < 0:
+            if abs(self.rect.top - other1.rect.bottom) < 20 and self.vely < 0:
                 print("Ball top hit paddle bottom")
                 self.vely = -self.vely
 
         if self.rect.colliderect(other2) and self.velx > 0:
             print("Collided with Player 2")
 
-            if abs(self.rect.right - other2.rect.left) < 10:
+            if abs(self.rect.right - other2.rect.left) < 20:
                 if self.rect.centery < other2.rect.centery:
                     if (self.rect.centery > other2.rect.centery-10):
                         # Found off stackexchange
@@ -187,15 +187,15 @@ class Ball():
                         self.vely = -6
 
                     elif (self.rect.centery > other2.rect.centery-20):
-                        self.velx = -6
-                        self.vely = -6
+                        self.velx = -8
+                        self.vely = -8
 
                     elif (self.rect.centery > other2.rect.centery-40):
                         self.velx = -6
                         self.vely = -10
                     else:
-                        self.velx = -3
-                        self.vely = -9
+                        self.velx = -4
+                        self.vely = -12
 
                 if self.rect.centery > other2.rect.centery:
                     if (self.rect.centery < other2.rect.centery+10):
@@ -203,24 +203,24 @@ class Ball():
                         self.vely = 6
 
                     elif (self.rect.centery < other2.rect.centery + 20):
-                        self.velx = -6
-                        self.vely = 6
+                        self.velx = -8
+                        self.vely = 8
 
                     elif(self.rect.centery < other2.rect.centery + 40):
                         self.velx = -6
                         self.vely = 10
                     else:
-                        self.velx = -3
-                        self.vely = 9
+                        self.velx = -4
+                        self.vely = 12
 
                 if self.rect.centery == other2.rect.centery:
                     self.velx = -12
                     self.vely = 0
 
-            if abs(self.rect.bottom - other2.rect.top) < 10 and self.vely > 0:
+            if abs(self.rect.bottom - other2.rect.top) < 20 and self.vely > 0:
                 self.vely = -self.vely
 
-            if abs(self.rect.top - other2.rect.bottom) < 10 and self.vely < 0:
+            if abs(self.rect.top - other2.rect.bottom) < 20 and self.vely < 0:
                 self.vely = -self.vely
 
         if self.rect.left <= 0:
@@ -313,8 +313,8 @@ def menu(display):
         pygame.draw.rect(display,white,against_cpu)
         pygame.draw.rect(display,white,ai_against_cpu)
 
-        display.blit(font.render('P1 vs Cpu',True,black),(display_width/2 - 70,display_height/2 + 25))
-        display.blit(font.render(' AI vs Cpu',True,black),((display_width/2) - 70,(display_height/2) - 105))
+        display.blit(font.render('AI vs Cpu',True,black),(display_width/2 - 70,display_height/2 + 25))
+        display.blit(font.render(' P1 vs Cpu',True,black),((display_width/2) - 70,(display_height/2) - 105))
         pygame.display.flip()
         
         click = False
